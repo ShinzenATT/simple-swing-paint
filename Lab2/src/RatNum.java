@@ -137,9 +137,10 @@ public class RatNum {
      */
     public static RatNum parse(String str){
         String[] numbers = str.split("/");
-        if(numbers.length != 2){
+        if(numbers.length > 2){
             throw new NumberFormatException();
-        }
+        }else if(numbers.length == 1)
+            return new RatNum(Integer.parseInt(numbers[0]), 1);
         int nominator = Integer.parseInt(numbers[0]);
         int denominator = Integer.parseInt(numbers[1]);
         return new RatNum(nominator, denominator);
@@ -171,7 +172,7 @@ public class RatNum {
     }
 
     /**
-     * Compares two fractions to see if they've the same value
+     * Compares two fractions to see if they're the same value
      * @param obj fraction value to be compared to
      * @return true when the fractions are the same value otherwise false
      */
