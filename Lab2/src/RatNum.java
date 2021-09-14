@@ -1,42 +1,42 @@
 /**
- *  An object that represents a fraction with the properties nominator and denominator
+ *  An object that represents a fraction with the properties numerator and denominator
  */
 public class RatNum {
     /**
-     *  The nominator of a fraction, can be negative
+     *  The numerator of a fraction, can be negative
      */
-    private int Nominator;
+    private final int Numerator;
     /**
      *  The denominator of a fraction, is always >0
      */
-    private int Denominator;
+    private final int Denominator;
 
     /**
-     * Creates a fraction object with nominator and denominator. The (de)nominator will be in their smallest forms that is allowed by the fraction.
-     * @param nominator The nominator of a fraction
+     * Creates a fraction object with numerator and denominator. The (de)nominator will be in their smallest forms that is allowed by the fraction.
+     * @param numerator The numerator of a fraction
      * @param denominator The denominator of a fraction, cannot be 0
      * @exception NumberFormatException When denominator is 0
      */
-    public RatNum(int nominator, int denominator){
+    public RatNum(int numerator, int denominator){
         if(denominator == 0){
             throw new NumberFormatException();
         }
         if(denominator < 0){
-            nominator *= -1;
+            numerator *= -1;
             denominator *= -1;
         }
 
-        int gcd = gcd(nominator, denominator);
-        Nominator = nominator / gcd;
+        int gcd = gcd(numerator, denominator);
+        Numerator = numerator / gcd;
         Denominator = denominator / gcd;
     }
 
     /**
      * Converts a whole number to a fraction object where the denominator will be 1.
-     * @param number The whole number which will be used as the nominator of the fraction object
+     * @param number The whole number which will be used as the numerator of the fraction object
      */
     public RatNum(int number){
-        Nominator = number;
+        Numerator = number;
         Denominator = 1;
     }
 
@@ -47,7 +47,7 @@ public class RatNum {
      */
     public RatNum(String fraction){
         RatNum num = parse(fraction);
-        Nominator = num.getNumerator();
+        Numerator = num.getNumerator();
         Denominator = num.getDenominator();
     }
 
@@ -57,7 +57,7 @@ public class RatNum {
      * @param ratNum An existing fraction object.
      */
     public RatNum(RatNum ratNum){
-        Nominator = ratNum.getNumerator();
+        Numerator = ratNum.getNumerator();
         Denominator = ratNum.getDenominator();
     }
 
@@ -66,7 +66,7 @@ public class RatNum {
      * @see RatNum
      */
     public RatNum(){
-        Nominator = 0;
+        Numerator = 0;
         Denominator = 1;
     }
 
@@ -103,10 +103,10 @@ public class RatNum {
     }
 
     /**
-     * @return The nominator of the fraction object
+     * @return The numerator of the fraction object
      */
     public int getNumerator() {
-        return Nominator;
+        return Numerator;
     }
 
     /**
@@ -121,11 +121,11 @@ public class RatNum {
      * @return A string in the format of "a/b"
      */
     public String toString(){
-        return "" + Nominator + '/' + Denominator;
+        return "" + Numerator + '/' + Denominator;
     }
 
     public String toIntString(){
-        int value = Nominator / Denominator;
+        int value = Numerator / Denominator;
         return String.valueOf(value);
     }
 
@@ -137,38 +137,66 @@ public class RatNum {
      */
     public static RatNum parse(String str){
         String[] numbers = str.split("/");
-        if(numbers.length > 2)
+        if(numbers.length > 2) {
             throw new NumberFormatException();
-        else if(numbers.length == 1)
+        }
+        else if(numbers.length == 1) {
             return new RatNum(Integer.parseInt(numbers[0]), 1);
-        int nominator = Integer.parseInt(numbers[0]);
+        }
+        // TODO Create a method to parse stings without parseInt
+        int numerator = Integer.parseInt(numbers[0]);
         int denominator = Integer.parseInt(numbers[1]);
-        return new RatNum(nominator, denominator);
+        return new RatNum(numerator, denominator);
     }
 
-    // TODO Implement addition
+    /**
+     * Adds together fractions and returns the result
+     * @param ratNum A fraction to add with the current object
+     * @return A {@link RatNum} object with the sum from the addition
+     */
     public RatNum add(RatNum ratNum){
-        return null;
+        int numerator = Numerator * ratNum.getDenominator() + ratNum.getNumerator() * Denominator;
+        // The constructor will shorten the fraction if needed
+        return new RatNum(numerator, Denominator * ratNum.getDenominator());
     }
 
-    // TODO Implement subtraction
+    /**
+     * Subtracts the current fraction with the argument and returns the resulting fraction
+     * @param ratNum The fraction that is in the right-hand side of the subtraction
+     * @return A {@link RatNum} object containing the difference from the subtraction
+     */
     public RatNum sub(RatNum ratNum){
-        return null;
+        int numerator = Numerator * ratNum.getDenominator() - ratNum.getNumerator() * Denominator;
+        // The constructor will shorten the fraction if needed
+        return new RatNum(numerator, Denominator * ratNum.getDenominator());
     }
 
-    // TODO Implement multiplication
+    /**
+     * Multiplies two fractions with each other and then returns the resulting fraction
+     * @param ratNum A fraction to multiply with the current fraction
+     * @return A {@link RatNum} object containing the result of multiplication
+     */
     public RatNum mul(RatNum ratNum){
-        return null;
+        return new RatNum(Numerator * ratNum.getNumerator(), Denominator * ratNum.getDenominator());
     }
 
-    // TODO Implement division
+    /**
+     * Divides two fractions with each other and returns the resulting fraction
+     * @param ratNum The fraction that will be used as the denominator of the division
+     * @return A {@link RatNum} object that contains the result from the division
+     */
     public RatNum div(RatNum ratNum){
-        return null;
+        // Uses inverted multiplication for division
+        return new RatNum(Numerator * ratNum.getDenominator(), Denominator * ratNum.getNumerator());
     }
 
-    // TODO Implement a less than check
+    /**
+     * Checks if the current fraction is less than the argument fraction
+     * @param ratNum A fraction to be compared to the implicit argument to see if it's bigger
+     * @return A boolean which is true when the argument is bigger than the implicit argument or otherwise false.
+     */
     public boolean lessThan(RatNum ratNum){
-        return false;
+        return Numerator * ratNum.getDenominator() < ratNum.getNumerator() * Denominator;
     }
 
     /**
@@ -181,6 +209,6 @@ public class RatNum {
         if(!(obj instanceof RatNum ratNum)){
             return false;
         }
-        return Nominator == ratNum.getNumerator() && Denominator == ratNum.getDenominator();
+        return Numerator == ratNum.getNumerator() && Denominator == ratNum.getDenominator();
     }
 }
