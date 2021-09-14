@@ -137,12 +137,10 @@ public class RatNum {
      */
     public static RatNum parse(String str){
         String[] numbers = str.split("/");
-        if(numbers.length > 2) {
+        if(numbers.length > 2)
             throw new NumberFormatException();
-        }
-        else if(numbers.length == 1) {
+        else if(numbers.length == 1)
             return new RatNum(Integer.parseInt(numbers[0]), 1);
-        }
         // TODO Create a method to parse stings without parseInt
         int numerator = Integer.parseInt(numbers[0]);
         int denominator = Integer.parseInt(numbers[1]);
