@@ -141,7 +141,6 @@ public class RatNum {
             throw new NumberFormatException();
         else if(numbers.length == 1)
             return new RatNum(Integer.parseInt(numbers[0]), 1);
-        // TODO Create a method to parse stings without parseInt
         int numerator = Integer.parseInt(numbers[0]);
         int denominator = Integer.parseInt(numbers[1]);
         return new RatNum(numerator, denominator);
