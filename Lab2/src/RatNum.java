@@ -5,11 +5,11 @@ public class RatNum {
     /**
      *  The numerator of a fraction, can be negative
      */
-    private final int Numerator;
+    private final int cNumerator;
     /**
      *  The denominator of a fraction, is always >0
      */
-    private final int Denominator;
+    private final int cDenominator;
 
     /**
      * Creates a fraction object with numerator and denominator. The (de)nominator will be in their smallest forms that is allowed by the fraction.
@@ -27,8 +27,8 @@ public class RatNum {
         }
 
         int gcd = gcd(numerator, denominator);
-        Numerator = numerator / gcd;
-        Denominator = denominator / gcd;
+        cNumerator = numerator / gcd;
+        cDenominator = denominator / gcd;
     }
 
     /**
@@ -36,8 +36,8 @@ public class RatNum {
      * @param number The whole number which will be used as the numerator of the fraction object
      */
     public RatNum(int number){
-        Numerator = number;
-        Denominator = 1;
+        cNumerator = number;
+        cDenominator = 1;
     }
 
     /**
@@ -47,8 +47,8 @@ public class RatNum {
      */
     public RatNum(String fraction){
         RatNum num = parse(fraction);
-        Numerator = num.getNumerator();
-        Denominator = num.getDenominator();
+        cNumerator = num.getNumerator();
+        cDenominator = num.getDenominator();
     }
 
     /**
@@ -57,8 +57,8 @@ public class RatNum {
      * @param ratNum An existing fraction object.
      */
     public RatNum(RatNum ratNum){
-        Numerator = ratNum.getNumerator();
-        Denominator = ratNum.getDenominator();
+        cNumerator = ratNum.getNumerator();
+        cDenominator = ratNum.getDenominator();
     }
 
     /**
@@ -66,8 +66,8 @@ public class RatNum {
      * @see RatNum
      */
     public RatNum(){
-        Numerator = 0;
-        Denominator = 1;
+        cNumerator = 0;
+        cDenominator = 1;
     }
 
     /**
@@ -106,14 +106,14 @@ public class RatNum {
      * @return The numerator of the fraction object
      */
     public int getNumerator() {
-        return Numerator;
+        return cNumerator;
     }
 
     /**
      * @return The denominator of the fraction object
      */
     public int getDenominator(){
-        return Denominator;
+        return cDenominator;
     }
 
     /**
@@ -121,11 +121,20 @@ public class RatNum {
      * @return A string in the format of "a/b"
      */
     public String toString(){
-        return "" + Numerator + '/' + Denominator;
+        String str = "";
+        int whole = cNumerator / cDenominator;
+        int rest = cNumerator % cDenominator;
+        if(whole != 0 || cNumerator == 0){
+            str += whole + " ";
+        }
+        if(rest != 0){
+            str += (cNumerator - whole * cDenominator) + "/" + cDenominator;
+        }
+        return str;
     }
 
     public String toIntString(){
-        int value = Numerator / Denominator;
+        int value = cNumerator / cDenominator;
         return String.valueOf(value);
     }
 
@@ -137,10 +146,13 @@ public class RatNum {
      */
     public static RatNum parse(String str){
         String[] numbers = str.split("/");
-        if(numbers.length > 2)
+
+        if(!str.contains("/")) {
+            return new RatNum(Integer.parseInt(str), 1);
+        }
+        else if(numbers.length != 2) {
             throw new NumberFormatException();
-        else if(numbers.length == 1)
-            return new RatNum(Integer.parseInt(numbers[0]), 1);
+        }
         int numerator = Integer.parseInt(numbers[0]);
         int denominator = Integer.parseInt(numbers[1]);
         return new RatNum(numerator, denominator);
@@ -152,9 +164,9 @@ public class RatNum {
      * @return A {@link RatNum} object with the sum from the addition
      */
     public RatNum add(RatNum ratNum){
-        int numerator = Numerator * ratNum.getDenominator() + ratNum.getNumerator() * Denominator;
+        int numerator = cNumerator * ratNum.getDenominator() + ratNum.getNumerator() * cDenominator;
         // The constructor will shorten the fraction if needed
-        return new RatNum(numerator, Denominator * ratNum.getDenominator());
+        return new RatNum(numerator, cDenominator * ratNum.getDenominator());
     }
 
     /**
@@ -163,9 +175,9 @@ public class RatNum {
      * @return A {@link RatNum} object containing the difference from the subtraction
      */
     public RatNum sub(RatNum ratNum){
-        int numerator = Numerator * ratNum.getDenominator() - ratNum.getNumerator() * Denominator;
+        int numerator = cNumerator * ratNum.getDenominator() - ratNum.getNumerator() * cDenominator;
         // The constructor will shorten the fraction if needed
-        return new RatNum(numerator, Denominator * ratNum.getDenominator());
+        return new RatNum(numerator, cDenominator * ratNum.getDenominator());
     }
 
     /**
@@ -174,7 +186,7 @@ public class RatNum {
      * @return A {@link RatNum} object containing the result of multiplication
      */
     public RatNum mul(RatNum ratNum){
-        return new RatNum(Numerator * ratNum.getNumerator(), Denominator * ratNum.getDenominator());
+        return new RatNum(cNumerator * ratNum.getNumerator(), cDenominator * ratNum.getDenominator());
     }
 
     /**
@@ -184,7 +196,7 @@ public class RatNum {
      */
     public RatNum div(RatNum ratNum){
         // Uses inverted multiplication for division
-        return new RatNum(Numerator * ratNum.getDenominator(), Denominator * ratNum.getNumerator());
+        return new RatNum(cNumerator * ratNum.getDenominator(), cDenominator * ratNum.getNumerator());
     }
 
     /**
@@ -193,7 +205,7 @@ public class RatNum {
      * @return A boolean which is true when the argument is bigger than the implicit argument or otherwise false.
      */
     public boolean lessThan(RatNum ratNum){
-        return Numerator * ratNum.getDenominator() < ratNum.getNumerator() * Denominator;
+        return cNumerator * ratNum.getDenominator() < ratNum.getNumerator() * cDenominator;
     }
 
     /**
@@ -206,6 +218,6 @@ public class RatNum {
         if(!(obj instanceof RatNum ratNum)){
             return false;
         }
-        return Numerator == ratNum.getNumerator() && Denominator == ratNum.getDenominator();
+        return cNumerator == ratNum.getNumerator() && cDenominator == ratNum.getDenominator();
     }
 }
