@@ -29,7 +29,8 @@ public class RatNum {
         }
         BigInteger gcd = n.gcd(d);
         cNumerator = n.divide(gcd);
-        cDenominator = n.divide(gcd);
+        cDenominator = d.divide(gcd);
+        //System.out.println("! " + cNumerator + "/" + cDenominator);
     }
 
 
@@ -39,7 +40,8 @@ public class RatNum {
      * @param denominator The denominator of a fraction, cannot be 0
      */
     public RatNum(int numerator, int denominator){
-        this(BigInteger.valueOf(numerator), BigInteger.valueOf(denominator));
+        this(new BigInteger(String.valueOf(numerator)), new BigInteger(String.valueOf(denominator)));
+        //System.out.println("?" + numerator + "/" + denominator);
     }
 
     /**
