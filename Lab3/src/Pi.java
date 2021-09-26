@@ -1,3 +1,5 @@
+import java.math.*;
+
 public class Pi {
 
     public static void main(String[] args) {
@@ -6,10 +8,18 @@ public class Pi {
             decimalCount = Integer.valueOf(args[0]);
         }
 
-        RatNum res = new RatNum(0,1);
-        // ersätt följande två rader med din lösning
-        res = res.add(new RatNum(1,3));
-        res = res.add(new RatNum(1,3));
+        System.out.println("\nCaclculating...");
+
+        RatNum res = new RatNum();
+        for(int i = 0; i < 2000; i++){
+            RatNum digitExtract = new RatNum(4, 8 * i + 1);
+            digitExtract = digitExtract.sub(new RatNum(2, 8 * i + 4));
+            digitExtract = digitExtract.sub(new RatNum(1, 8 * i + 5));
+            digitExtract = digitExtract.sub(new RatNum(1, 8 * i + 6));
+            digitExtract = digitExtract.mul(new RatNum(1, (int) Math.pow(16, i)));
+            res = res.add(digitExtract);
+            //System.out.println("Ratnum: " + digitExtract.toString() + " i: " + i + " Sum: " + res.toString() + "\n");
+        }
 
         // kod för utskriften (behöver inte ändras)
         // denna kod antar att den första decimalen av res är något annat än 0
@@ -19,7 +29,7 @@ public class Pi {
         for (int k=0; k<decimalCount; k++) {
             m = m.mul(ten);
         }
-        System.out.print("pi = ");
+        System.out.print("\npi = ");
         String intPart = res.toIntString();
         System.out.print(intPart);
         System.out.print(".");
