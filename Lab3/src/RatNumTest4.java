@@ -21,7 +21,7 @@ public class RatNumTest4 {
             for (int i=1; i<50; i++) {
                 RatNum y = x.div(ten);
                 if (x.lessThan(y)) {
-                    fail("divide many times");
+                    fail("divide many times " + x.toString());
                     break;
                 }
                 x = y;

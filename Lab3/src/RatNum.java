@@ -60,8 +60,8 @@ public class RatNum {
      */
     public RatNum(String fraction){
         RatNum num = parse(fraction);
-        cNumerator = BigInteger.valueOf(num.getNumerator());
-        cDenominator = BigInteger.valueOf(num.getDenominator());
+        cNumerator = num.getNumerator();
+        cDenominator = num.getDenominator();
     }
 
     /**
@@ -70,8 +70,8 @@ public class RatNum {
      * @param ratNum An existing fraction object.
      */
     public RatNum(RatNum ratNum){
-        cNumerator = BigInteger.valueOf(ratNum.getNumerator());
-        cDenominator = BigInteger.valueOf(ratNum.getDenominator());
+        cNumerator = ratNum.getNumerator();
+        cDenominator = ratNum.getDenominator();
     }
 
     /**
@@ -118,17 +118,15 @@ public class RatNum {
     /**
      * @return The numerator of the fraction object
      */
-    public int getNumerator() {
-        int numerator = cNumerator.intValue();
-        return numerator;
+    public BigInteger getNumerator() {
+        return cNumerator;
     }
 
     /**
      * @return The denominator of the fraction object
      */
-    public int getDenominator(){
-        int denominator = cDenominator.intValue();
-        return denominator;
+    public BigInteger getDenominator(){
+        return cDenominator;
     }
 
     /**
@@ -179,9 +177,9 @@ public class RatNum {
      * @return A {@link RatNum} object with the sum from the addition
      */
     public RatNum add(RatNum ratNum){
-        BigInteger numerator = cNumerator.multiply(BigInteger.valueOf(ratNum.getDenominator())).add(BigInteger.valueOf(ratNum.getNumerator()).multiply(cDenominator));
+        BigInteger numerator = cNumerator.multiply(ratNum.getDenominator()).add(ratNum.getNumerator().multiply(cDenominator));
         // The constructor will shorten the fraction if needed
-        return new RatNum(numerator, cDenominator.multiply(BigInteger.valueOf(ratNum.getDenominator())));
+        return new RatNum(numerator, cDenominator.multiply(ratNum.getDenominator()));
     }
 
     /**
@@ -190,9 +188,9 @@ public class RatNum {
      * @return A {@link RatNum} object containing the difference from the subtraction
      */
     public RatNum sub(RatNum ratNum){
-        BigInteger numerator = cNumerator.multiply(BigInteger.valueOf(ratNum.getDenominator())).subtract(BigInteger.valueOf(ratNum.getNumerator()).multiply(cDenominator));
+        BigInteger numerator = cNumerator.multiply(ratNum.getDenominator()).subtract(ratNum.getNumerator().multiply(cDenominator));
         // The constructor will shorten the fraction if needed
-        return new RatNum(numerator, cDenominator.multiply(BigInteger.valueOf(ratNum.getDenominator())));
+        return new RatNum(numerator, cDenominator.multiply(ratNum.getDenominator()));
     }
 
     /**
@@ -201,7 +199,7 @@ public class RatNum {
      * @return A {@link RatNum} object containing the result of multiplication
      */
     public RatNum mul(RatNum ratNum){
-        return new RatNum(cNumerator.multiply(BigInteger.valueOf(ratNum.getNumerator())), cDenominator.multiply(BigInteger.valueOf(ratNum.getDenominator())));
+        return new RatNum(cNumerator.multiply(ratNum.getNumerator()), cDenominator.multiply(ratNum.getDenominator()));
     }
 
     /**
@@ -211,7 +209,7 @@ public class RatNum {
      */
     public RatNum div(RatNum ratNum){
         // Uses inverted multiplication for division
-        return new RatNum(cNumerator.multiply(BigInteger.valueOf(ratNum.getDenominator())), cDenominator.multiply(BigInteger.valueOf(ratNum.getNumerator())));
+        return new RatNum(cNumerator.multiply(ratNum.getDenominator()), cDenominator.multiply(ratNum.getNumerator()));
     }
 
     /**
@@ -220,7 +218,7 @@ public class RatNum {
      * @return A boolean which is true when the argument is bigger than the implicit argument or otherwise false.
      */
     public boolean lessThan(RatNum ratNum){
-        BigInteger lessThan = cNumerator.multiply(BigInteger.valueOf(ratNum.getDenominator())).subtract(BigInteger.valueOf(ratNum.getNumerator()).multiply(cDenominator));
+        BigInteger lessThan = cNumerator.multiply(ratNum.getDenominator()).subtract(ratNum.getNumerator()).multiply(cDenominator);
         if(lessThan.signum() == -1){
             return true;
         }else{
@@ -238,6 +236,6 @@ public class RatNum {
         if(!(obj instanceof RatNum ratNum)){
             return false;
         }
-        return cNumerator.equals(BigInteger.valueOf(ratNum.getNumerator())) && cDenominator.equals(BigInteger.valueOf(ratNum.getDenominator()));
+        return cNumerator.equals(ratNum.getNumerator()) && cDenominator.equals(ratNum.getDenominator());
     }
 }
