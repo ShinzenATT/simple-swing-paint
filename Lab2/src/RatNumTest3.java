@@ -3,7 +3,7 @@ import java.util.*;
 
 class RatNumTest3 {
 
-    public static String ratNumToString(RatNum r) {
+    public static String ratNumToString(RatNumLab2 r) {
         int num = r.getNumerator();
         int denom = r.getDenominator();
         if (num == 0) {
@@ -23,11 +23,11 @@ class RatNumTest3 {
 
     private static void divTester() {
         // Testar equals och clone
-        RatNum x = new RatNum(6,2);
-        RatNum y = new RatNum(0);
-        RatNum z = new RatNum(0,1);
-        RatNum w = new RatNum(75,25);
-        Object v = new RatNum(75,25);
+        RatNumLab2 x = new RatNumLab2(6,2);
+        RatNumLab2 y = new RatNumLab2(0);
+        RatNumLab2 z = new RatNumLab2(0,1);
+        RatNumLab2 w = new RatNumLab2(75,25);
+        Object v = new RatNumLab2(75,25);
         String str = new String("TEST");
 
         System.out.println();
@@ -63,23 +63,23 @@ class RatNumTest3 {
             System.out.println("RatNumTest3: FEL 5 i equals!!");
         }
         System.out.println("<<<< Slut på equals tester");
-        RatNum r = new RatNum(1);
+        RatNumLab2 r = new RatNumLab2(1);
         String expected = "";
         for (int i=0; i<7; i++) {
             if (i == 0) {
-                expected = "0"; r = new RatNum(1,2);
+                expected = "0"; r = new RatNumLab2(1,2);
             } else if (i == 1) {
-                expected = "-20"; r = new RatNum(-20,1);
+                expected = "-20"; r = new RatNumLab2(-20,1);
             } else if (i == 2) {
-                expected = "0"; r = new RatNum(2,3);
+                expected = "0"; r = new RatNumLab2(2,3);
             } else if (i == 3) {
-                expected = "0"; r = new RatNum(2,-3);
+                expected = "0"; r = new RatNumLab2(2,-3);
             } else if (i == 4) {
-                expected = "-1"; r = new RatNum(-5,3);
+                expected = "-1"; r = new RatNumLab2(-5,3);
             } else if (i == 5) {
-                expected = "104"; r = new RatNum(7000,67);
+                expected = "104"; r = new RatNumLab2(7000,67);
             } else if (i == 6) {
-                expected = "0"; r = new RatNum(89,99);
+                expected = "0"; r = new RatNumLab2(89,99);
             }
             String output = r.toIntString();
             if (!output.equals(expected)) {
@@ -110,14 +110,14 @@ class RatNumTest3 {
             return("Felaktigt uttryck!");
         else {
             try {
-                RatNum r1 = RatNum.parse(a[0]);
+                RatNumLab2 r1 = RatNumLab2.parse(a[0]);
                 String op = a[1];
                 char c = op.charAt(0);
-                RatNum r2 = new RatNum(a[2]);
+                RatNumLab2 r2 = new RatNumLab2(a[2]);
                 if (op.length() != 1 || "+-*/=<".indexOf(c) < 0)
                     return("Felaktig operator!");
                 else {
-                    RatNum res = null;
+                    RatNumLab2 res = null;
                     if (c == '+')
                         res = r1.add(r2);
                     else if (c == '-')
@@ -193,7 +193,7 @@ class RatNumTest3 {
                 //System.out.println("\t##*"+givenAnswer+"* " + "*"+correctAnswer+ "*" + ratNumToString(new RatNum(givenAnswer)) + "* debug"); // debug
                 // test if answer given as a/B +
                 // strängen till NumberFormatException kan vara olika
-                if ( correctAnswer.equals(ratNumToString(new RatNum(givenAnswer)))
+                if ( correctAnswer.equals(ratNumToString(new RatNumLab2(givenAnswer)))
                      || ( correctAnswer.indexOf("NumberFormatException") != -1
                           && givenAnswer.indexOf("NumberFormatException") != -1 )
                      ) {

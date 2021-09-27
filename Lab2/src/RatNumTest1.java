@@ -1,12 +1,10 @@
-import java.util.*;
-
 public class RatNumTest1 {
 
     private static void testa(int m, int n) {
         System.out.print("Talen är " + m + " och " + n + ".\t");
         int z = 0;
         try {
-            z = RatNum.gcd(m,n);
+            z = RatNumLab2.gcd(m,n);
         }
         catch (IllegalArgumentException e1) {
             if (m==0 && n==0)
