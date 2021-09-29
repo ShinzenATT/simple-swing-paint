@@ -11,12 +11,12 @@ public class Pi {
         System.out.println("\nCaclculating...");
 
         RatNum res = new RatNum();
-        for(int i = 0; i < 2000; i++){
-            RatNum digitExtract = new RatNum(4, 8 * i + 1);
-            digitExtract = digitExtract.sub(new RatNum(2, 8 * i + 4));
-            digitExtract = digitExtract.sub(new RatNum(1, 8 * i + 5));
-            digitExtract = digitExtract.sub(new RatNum(1, 8 * i + 6));
-            digitExtract = digitExtract.mul(new RatNum(1, (int) Math.pow(16, i)));
+        for(int i = 0; i < 70; i++){
+            RatNum digitExtract = new RatNum(4 + "/" + (8 * i + 1));
+            digitExtract = digitExtract.sub(new RatNum(2 + "/" + (8 * i + 4)));
+            digitExtract = digitExtract.sub(new RatNum(1 + "/" + (8 * i + 5)));
+            digitExtract = digitExtract.sub(new RatNum(1 + "/" + (8 * i + 6)));
+            digitExtract = digitExtract.mul(new RatNum(1 + "/" + RatNum.pow(16, i)));
             res = res.add(digitExtract);
             //System.out.println("Ratnum: " + digitExtract.toString() + " i: " + i + " Sum: " + res.toString() + "\n");
         }

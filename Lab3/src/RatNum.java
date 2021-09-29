@@ -60,8 +60,8 @@ public class RatNum {
      */
     public RatNum(String fraction){
         RatNum num = parse(fraction);
-        cNumerator = num.getNumerator();
-        cDenominator = num.getDenominator();
+        cNumerator = num.cNumerator;
+        cDenominator = num.cDenominator;
     }
 
     /**
@@ -70,8 +70,8 @@ public class RatNum {
      * @param ratNum An existing fraction object.
      */
     public RatNum(RatNum ratNum){
-        cNumerator = ratNum.getNumerator();
-        cDenominator = ratNum.getDenominator();
+        cNumerator = ratNum.cNumerator;
+        cDenominator = ratNum.cDenominator;
     }
 
     /**
@@ -118,15 +118,15 @@ public class RatNum {
     /**
      * @return The numerator of the fraction object
      */
-    public BigInteger getNumerator() {
-        return cNumerator;
+    public int getNumerator() {
+        return cNumerator.intValue();
     }
 
     /**
      * @return The denominator of the fraction object
      */
-    public BigInteger getDenominator(){
-        return cDenominator;
+    public int getDenominator(){
+        return cDenominator.intValue();
     }
 
     /**
@@ -177,9 +177,9 @@ public class RatNum {
      * @return A {@link RatNum} object with the sum from the addition
      */
     public RatNum add(RatNum ratNum){
-        BigInteger numerator = cNumerator.multiply(ratNum.getDenominator()).add(ratNum.getNumerator().multiply(cDenominator));
+        BigInteger numerator = cNumerator.multiply(ratNum.cDenominator).add(ratNum.cNumerator.multiply(cDenominator));
         // The constructor will shorten the fraction if needed
-        return new RatNum(numerator, cDenominator.multiply(ratNum.getDenominator()));
+        return new RatNum(numerator, cDenominator.multiply(ratNum.cDenominator));
     }
 
     /**
@@ -188,9 +188,9 @@ public class RatNum {
      * @return A {@link RatNum} object containing the difference from the subtraction
      */
     public RatNum sub(RatNum ratNum){
-        BigInteger numerator = cNumerator.multiply(ratNum.getDenominator()).subtract(ratNum.getNumerator().multiply(cDenominator));
+        BigInteger numerator = cNumerator.multiply(ratNum.cDenominator).subtract(ratNum.cNumerator.multiply(cDenominator));
         // The constructor will shorten the fraction if needed
-        return new RatNum(numerator, cDenominator.multiply(ratNum.getDenominator()));
+        return new RatNum(numerator, cDenominator.multiply(ratNum.cDenominator));
     }
 
     /**
@@ -199,7 +199,7 @@ public class RatNum {
      * @return A {@link RatNum} object containing the result of multiplication
      */
     public RatNum mul(RatNum ratNum){
-        return new RatNum(cNumerator.multiply(ratNum.getNumerator()), cDenominator.multiply(ratNum.getDenominator()));
+        return new RatNum(cNumerator.multiply(ratNum.cNumerator), cDenominator.multiply(ratNum.cDenominator));
     }
 
     /**
@@ -209,7 +209,7 @@ public class RatNum {
      */
     public RatNum div(RatNum ratNum){
         // Uses inverted multiplication for division
-        return new RatNum(cNumerator.multiply(ratNum.getDenominator()), cDenominator.multiply(ratNum.getNumerator()));
+        return new RatNum(cNumerator.multiply(ratNum.cDenominator), cDenominator.multiply(ratNum.cNumerator));
     }
 
     /**
@@ -218,12 +218,27 @@ public class RatNum {
      * @return A boolean which is true when the argument is bigger than the implicit argument or otherwise false.
      */
     public boolean lessThan(RatNum ratNum){
-        BigInteger lessThan = cNumerator.multiply(ratNum.getDenominator()).subtract(ratNum.getNumerator()).multiply(cDenominator);
+        BigInteger lessThan = cNumerator.multiply(ratNum.cDenominator).subtract(ratNum.cNumerator).multiply(cDenominator);
         if(lessThan.signum() == -1){
             return true;
         }else{
             return false;
         }
+    }
+
+    /**
+     * Solving power form for BigIntegers
+     * @param b The base of  the power form
+     * @param e The exponent of the power form
+     * @return
+     */
+    public static BigInteger pow(int b, int e){
+        BigInteger sum = BigInteger.valueOf(1);
+        BigInteger base = BigInteger.valueOf(b);
+        for(int i = 0; i < e; i++){
+            sum = sum.multiply(base);
+        }
+        return sum;
     }
 
     /**
@@ -238,4 +253,6 @@ public class RatNum {
         }
         return cNumerator.equals(ratNum.getNumerator()) && cDenominator.equals(ratNum.getDenominator());
     }
+
+
 }
