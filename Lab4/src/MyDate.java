@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 /** En immutable klass som representerar datum.
@@ -100,6 +102,10 @@ public class MyDate {
             return new MyDate(y,m+1,1);
         }
         return new MyDate(y,m,d+1);
+    }
+
+    public Iterator<MyDate> repeatWeekly(int a){
+        return null;
     }
 
 }
