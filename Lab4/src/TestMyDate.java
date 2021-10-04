@@ -1,5 +1,3 @@
-package src;
-
 import java.util.*;
 
 public class TestMyDate {
@@ -81,7 +79,14 @@ public class TestMyDate {
         }
 
         // test 2: försöker hitta ett fel i compareTo
+        d1 = new MyDate(2020, 05, 30);
+        d2 = new MyDate(2000, 06, 28);
+        testOK = true;
+         int x = d1.compareTo(d2);
+         switch (x){
+             case -1:
 
+         }
         // skriv din lösning här
 
         if (testOK) {
