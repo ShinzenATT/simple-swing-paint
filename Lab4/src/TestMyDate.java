@@ -14,8 +14,8 @@ public class TestMyDate {
 
         // Check if exception appears in day 0
         try {
-        d1 = new MyDate(2021, 01, 0);
-        exceptionCheck = false;
+            d1 = new MyDate(2021, 01, 0);
+            exceptionCheck = false;
         } catch(Exception e){
             exceptionCheck = true;
         }
@@ -111,10 +111,7 @@ public class TestMyDate {
         }
 
         // test 3: försöker hitta ett fel i equals
-<<<<<<< HEAD
-        testOK = false;
         // skriv din lösning här
-=======
 
         testOK = true;
         d1 = new MyDate(2021, 06, 06);
@@ -123,7 +120,6 @@ public class TestMyDate {
             System.out.println("Error: Equals method only compares pointer adress");
             testOK = false;
         }
->>>>>>> df8256d... Added test 3
 
         if (testOK) {
             System.out.println("Test 3 OK.");

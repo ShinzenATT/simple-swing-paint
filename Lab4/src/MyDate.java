@@ -10,11 +10,15 @@ public class MyDate {
 
     /** Skapar ett nytt MyDate objekt för dagen: year, month, day.
         Exempel datumet 2029-07-15 skapas med new MyDate(2029,7,15).
-        @throws Kastar ett exception ifall datumet inte är ett giltigt datum (t.ex. 2003-02-29). */
-    public MyDate(int year, int month, int day) {
-        y = year;
-        m = month;
-        d = day;
+        @throws   Kastar  ett exception ifall datumet inte är ett giltigt datum (t.ex. 2003-02-29). */
+    public MyDate(int year, int month, int day){
+        if(year >= 0  && (0 < month && month < 13) && (0 < day && day < daysInMonth(month, year))){
+            y = year;
+            m = month;
+            d = day;
+        }else{
+            throw new IllegalArgumentException();
+        }
     }
 
     /** Returnerar värdet av year som gavs till construktorn */
@@ -104,7 +108,7 @@ public class MyDate {
     }
 
     /** Returnerar datumet av dagen som kommer direkt efter detta datum */
-    public MyDate next() {
+    public MyDate next() throws Exception {
         if ((m == 12) && (d == 31)) {
             return new MyDate(y+1,1,1);
         }
