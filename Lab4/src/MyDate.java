@@ -1,5 +1,3 @@
-package src;
-
 import java.util.*;
 
 /** En immutable klass som representerar datum.
