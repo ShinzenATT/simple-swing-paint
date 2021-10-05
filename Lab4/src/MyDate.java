@@ -1,4 +1,4 @@
-
+package src;
 
 import java.util.*;
 
@@ -123,8 +123,36 @@ public class MyDate {
         return new MyDate(y,m,d+1);
     }
 
-    public Iterator<MyDate> repeatWeekly(int a){
-        return null;
+    /** Returnerar en iterator som innehåller upprepningarna av detta datum med
+        en veckas mellanrum. Det första datumet är samma som this; följande är
+        7 dagar senare; och därefter 14 dagar senare, osv. Antalet datum i
+        iterator bör vara samma som det givna repetitionCount (antas vara >= 0). */
+    public Iterator<MyDate> repeatWeekly(int repetitionCount){
+        if(repetitionCount < 0){
+            throw new IllegalArgumentException();
+        }
+
+        LinkedList<MyDate> list = new LinkedList<MyDate>();
+        list.add(this);
+
+        int day = d,
+            month = m,
+            year = y;
+        for(int i = 0; i < (repetitionCount - 1); i++){
+            day += 7;
+            if(day > daysInMonth(month, year)){
+                day %= daysInMonth(month, year);
+                ++month;
+                if(month > 12){
+                    month = 1;
+                    ++year;
+                }
+            }
+
+            list.add(new MyDate(year, month, day));
+        }
+
+        return list.iterator();
     }
 
 }
