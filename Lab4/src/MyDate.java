@@ -47,7 +47,19 @@ public class MyDate {
     /** Returnerar -1 ifall this är ett tidigare datum än other.
         Returnerar 1 ifall other är ett tidigare datum än this.
         Returnerar 0 ifall this och other representerar samma datum. */
+
     public int compareTo(MyDate other) {
+        if (this.y < other.y || this.m < other.m || this.d < other.d) {
+            return 1;
+        }
+        if (this.y > other.y || this.m > other.m || this.d > other.d) {
+            return -1;
+        }
+        return 0;
+    }
+
+    //compareTo with errors
+    /*public int compareTo(MyDate other) {
         if (this.y < other.y || this.m < other.m || this.d < other.d) {
             return -1;
         }
@@ -55,7 +67,7 @@ public class MyDate {
             return 1;
         }
         return 0;
-    }
+    }*/
 
     /** Ger true ifall year är ett skottår */
     private static boolean isLeapYear(int year) {
