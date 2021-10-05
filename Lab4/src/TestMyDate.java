@@ -1,3 +1,5 @@
+
+
 import java.util.*;
 
 public class TestMyDate {
@@ -70,6 +72,13 @@ public class TestMyDate {
                     testOK = false;
                     System.out.println("Error: Allows negative date.");
                 }
+
+        try{
+            d1 = new MyDate(2024, 2, 29);
+        }catch(Exception e){
+            testOK = false;
+            System.out.println("Error: Throws exception on leap year date");
+        }
 
 
         if (testOK) {
