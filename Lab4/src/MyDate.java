@@ -1,3 +1,5 @@
+
+
 import java.util.*;
 
 /** En immutable klass som representerar datum.
@@ -12,7 +14,7 @@ public class MyDate {
         Exempel datumet 2029-07-15 skapas med new MyDate(2029,7,15).
         @throws   Kastar  ett exception ifall datumet inte är ett giltigt datum (t.ex. 2003-02-29). */
     public MyDate(int year, int month, int day){
-        if(year >= 0  && (0 < month && month < 13) && (0 < day && day < daysInMonth(month, year))){
+        if(year >= 0  && (0 < month && month < 13) && (0 < day && day <= daysInMonth(month, year))){
             y = year;
             m = month;
             d = day;
