@@ -12,7 +12,7 @@ public class MyDate {
 
     /** Skapar ett nytt MyDate objekt för dagen: year, month, day.
         Exempel datumet 2029-07-15 skapas med new MyDate(2029,7,15).
-        @throws   Kastar  ett exception ifall datumet inte är ett giltigt datum (t.ex. 2003-02-29). */
+        @throws  IllegalArgumentException  ifall datumet inte är ett giltigt datum (t.ex. 2003-02-29). */
     public MyDate(int year, int month, int day){
         if(year >= 0  && (0 < month && month < 13) && (0 < day && day <= daysInMonth(month, year))){
             y = year;
@@ -44,10 +44,13 @@ public class MyDate {
 
     /** Returnerar true ifall det givna objektet representerar samma datum */
     public boolean equals(Object other) {
-        if (other == null) { return false; }
-        if (this.getClass() != other.getClass()) { return false; }
-        MyDate x = (MyDate)other;
-        return (this == x);
+        if (other == null || !(other instanceof MyDate x)) {
+            return false;
+        }
+        boolean m = (x.getDay() == this.getDay());
+        boolean n = (x.getMonth() == this.getMonth());
+        boolean l = (x.getYear() == this.getYear());
+        return (m == (n == l));
     }
 
     /** Returnerar -1 ifall this är ett tidigare datum än other.
