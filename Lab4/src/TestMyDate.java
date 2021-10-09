@@ -96,7 +96,7 @@ public class TestMyDate {
             for(int j = 0; j < 3; j++){
                 int testdatedate[] = {2000, 6, 25};
                 //temporary array so every loop will only check the corresponding format
-                testdatedate[j] = date[j] + i;
+                testdatedate[j] = date[j] - i;
                 int x = d1.compareTo(new MyDate(testdatedate[0], testdatedate[1], testdatedate[2]));
 
                 // System.out.println(date[j] + " " + testdatedate[j] + " " + x);               //debugging
@@ -104,7 +104,7 @@ public class TestMyDate {
                 //runs if error response compared to the expected response
                 if (x != i){
 
-                    //System.out.println(false);                                                //debugging
+                    //System.out.println("Expected " + i + " (" + j + "), got " + x + " regarding " + testdatedate[0] + '-' + testdatedate[1] + '-' + testdatedate[2]);                                                //debugging
 
                     testOK = false;
                 }

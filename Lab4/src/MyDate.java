@@ -57,10 +57,10 @@ public class MyDate {
 
     public int compareTo(MyDate other) {
         if (this.y < other.y || this.m < other.m || this.d < other.d) {
-            return 1;
+            return -1;
         }
         if (this.y > other.y || this.m > other.m || this.d > other.d) {
-            return -1;
+            return 1;
         }
         return 0;
     }
