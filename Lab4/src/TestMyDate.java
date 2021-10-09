@@ -88,28 +88,86 @@ public class TestMyDate {
         // test 2: försöker hitta ett fel i compareTo
         testOK = true;
         d1 = new MyDate( 2000, 6, 25);
+
+        int[] thisdate= {2000, 6, 25};
+        for(int i = -1; i < 2; i++){
+            int[] otherdate = {2000 + i, 6 + i, 25 + i};
+            int x = d1.compareTo(new MyDate(otherdate[0], otherdate[1], otherdate[2]));
+            boolean y = false;
+            /*System.out.println(thisdate[0] + " " + thisdate[1] + " " + thisdate[2]);
+            System.out.println(otherdate[0] + " " + otherdate[1] + " " + otherdate[2]);
+            System.out.println(-i);*/
+            switch (-i){
+                case -1:
+                    if(thisdate[0] < otherdate[0]){
+                        y = true;
+                    }else if(thisdate[1] < otherdate[1]){
+                        y = true;
+                    }else if(thisdate[2] < otherdate[2]){
+                        y = true;
+                    }
+
+                case 0:
+                    if(thisdate[0] == otherdate[0]){
+                        if(thisdate[1] == otherdate[1]){
+                            if(thisdate[2] == otherdate[2]){
+                                y = true;
+                            }
+                        }
+                    }
+
+                case 1:
+                    if(thisdate[0] > otherdate[0]){
+                        y = true;
+                    }else if(thisdate[1] > otherdate[1]){
+                        y = true;
+                    }else if(thisdate[2] > otherdate[2]){
+                        y = true;
+                    }
+            }
+            //System.out.println(y);
+            if(!((x == -i) == y)){
+                //System.out.println("Fel x = " + x + " -i = " + -i + " y = " + y);
+                testOK = false;
+            }
+        }
+
+
+        /*
         //initialising compare date
         int date[] = {2000, 6 ,25};
         //loop for each error response
         for(int i = -1; i < 2; i++){
+            int x = 2;
+            int year_response = 2;
+            int month_response = 2;
+            int day_response = 2;
             //loop to test year, month and day by themselves
             for(int j = 0; j < 3; j++){
                 int testdatedate[] = {2000, 6, 25};
                 //temporary array so every loop will only check the corresponding format
                 testdatedate[j] = date[j] - i;
-                int x = d1.compareTo(new MyDate(testdatedate[0], testdatedate[1], testdatedate[2]));
-
-                // System.out.println(date[j] + " " + testdatedate[j] + " " + x);               //debugging
-
-                //runs if error response compared to the expected response
-                if (x != i){
-
-                    //System.out.println(false);                                                //debugging
-
-                    testOK = false;
+                x = d1.compareTo(new MyDate(testdatedate[0], testdatedate[1], testdatedate[2]));
+                if(j==0){
+                    year_response = x;
+                }else if(j == 1){
+                    month_response = x;
+                }else{
+                    day_response = x;
                 }
+                System.out.println("other " + testdatedate[0] + " " + testdatedate[1] + " " + testdatedate[2]);
+                System.out.println("this " + date[0] + " " + date[1] + " " + date[2]);
+                System.out.println(x);
             }
-        }
+            //runs if error response compared to the expected response
+            System.out.println(month_response + " " + month_response + " " + day_response + " " + x);
+            if ((year_response == month_response && day_response == month_response) && x != 2){
+
+                //System.out.println(false);                                                //debugging
+
+                testOK = false;
+            }
+        } */
 
         if (testOK) {
             System.out.println("Test 2 OK.");

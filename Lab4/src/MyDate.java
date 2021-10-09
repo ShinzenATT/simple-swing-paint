@@ -56,13 +56,23 @@ public class MyDate {
         Returnerar 0 ifall this och other representerar samma datum. */
 
     public int compareTo(MyDate other) {
-        if (this.d < other.d || this.m < other.m || this.y < other.y) {
+        if(this.y == other.y){
+            if(this.m == other.m){
+                if(this.d == other.d){
+                    return 0;
+                }else{
+                    return -1;
+                }
+            }else if(this.m > other.m){
+                return 1;
+            }else{
+                return -1;
+            }
+        }else if(this.y > other.y) {
+            return 1;
+        }else{
             return -1;
         }
-        if (this.d > other.d || this.m > other.m || this.y > other.y) {
-            return 1;
-        }
-        return 0;
     }
 
     //compareTo with errors
