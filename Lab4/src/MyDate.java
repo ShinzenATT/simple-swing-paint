@@ -58,11 +58,11 @@ public class MyDate {
     public int compareTo(MyDate other) {
         if (this.y < other.y || this.m < other.m || this.d < other.d) {
             return -1;
-        }
-        if (this.y > other.y || this.m > other.m || this.d > other.d) {
+        }else if (this.y > other.y || this.m > other.m || this.d > other.d) {
             return 1;
+        }else{
+            return 0;
         }
-        return 0;
     }
 
     //compareTo with errors

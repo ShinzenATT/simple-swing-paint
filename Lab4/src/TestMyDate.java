@@ -104,7 +104,7 @@ public class TestMyDate {
                 //runs if error response compared to the expected response
                 if (x != i){
 
-                    //System.out.println("Expected " + i + " (" + j + "), got " + x + " regarding " + testdatedate[0] + '-' + testdatedate[1] + '-' + testdatedate[2]);                                                //debugging
+                    //System.out.println(false);                                                //debugging
 
                     testOK = false;
                 }
