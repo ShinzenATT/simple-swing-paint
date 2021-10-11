@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 public class TestMyDate {
@@ -89,45 +91,25 @@ public class TestMyDate {
         testOK = true;
         d1 = new MyDate( 2000, 6, 25);
 
-        int[] thisdate= {2000, 6, 25};
-        for(int i = -1; i < 2; i++){
-            int[] otherdate = {2000 + i, 6 + i, 25 + i};
-            int x = d1.compareTo(new MyDate(otherdate[0], otherdate[1], otherdate[2]));
-            boolean y = false;
-            /*System.out.println(thisdate[0] + " " + thisdate[1] + " " + thisdate[2]);
-            System.out.println(otherdate[0] + " " + otherdate[1] + " " + otherdate[2]);
-            System.out.println(-i);*/
-            switch (-i){
-                case -1:
-                    if(thisdate[0] < otherdate[0]){
-                        y = true;
-                    }else if(thisdate[1] < otherdate[1]){
-                        y = true;
-                    }else if(thisdate[2] < otherdate[2]){
-                        y = true;
-                    }
+        MyDate[] dates = {
+            new MyDate(2000, 6, 25),
+            new MyDate(2001, 6, 25),
+            new MyDate(2000, 6, 27),
+            new MyDate(2000, 6, 24),
+            new MyDate(2000, 7, 25),
+            new MyDate(1998, 6, 29),
+            new MyDate(2000, 5, 29),
+            new MyDate(2000, 7, 24)
+        };
+        int[] expected = {0, -1, -1, 1, -1, 1, 1, -1};
 
-                case 0:
-                    if(thisdate[0] == otherdate[0]){
-                        if(thisdate[1] == otherdate[1]){
-                            if(thisdate[2] == otherdate[2]){
-                                y = true;
-                            }
-                        }
-                    }
+        for(int i = 0; i < dates.length; i++){
+            int r = d1.compareTo(dates[i]);
 
-                case 1:
-                    if(thisdate[0] > otherdate[0]){
-                        y = true;
-                    }else if(thisdate[1] > otherdate[1]){
-                        y = true;
-                    }else if(thisdate[2] > otherdate[2]){
-                        y = true;
-                    }
-            }
-            //System.out.println(y);
-            if(!((x == -i) == y)){
-                //System.out.println("Fel x = " + x + " -i = " + -i + " y = " + y);
+            if(r != expected[i]){
+                System.out.println("Error: Expected " + expected[i] + " and got " + r + " regarding " 
+                + dates[i].getYear() + '-' + dates[i].getMonth() + '-' + dates[i].getDay()
+                + " compared to 2000-06-25");
                 testOK = false;
             }
         }

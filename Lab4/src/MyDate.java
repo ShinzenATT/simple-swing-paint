@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 /** En immutable klass som representerar datum.
@@ -60,8 +62,10 @@ public class MyDate {
             if(this.m == other.m){
                 if(this.d == other.d){
                     return 0;
-                }else{
+                }else if(this.d < other.d){
                     return -1;
+                } else{
+                    return 1;
                 }
             }else if(this.m > other.m){
                 return 1;
