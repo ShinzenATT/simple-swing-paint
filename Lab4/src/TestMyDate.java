@@ -114,43 +114,6 @@ public class TestMyDate {
             }
         }
 
-
-        /*
-        //initialising compare date
-        int date[] = {2000, 6 ,25};
-        //loop for each error response
-        for(int i = -1; i < 2; i++){
-            int x = 2;
-            int year_response = 2;
-            int month_response = 2;
-            int day_response = 2;
-            //loop to test year, month and day by themselves
-            for(int j = 0; j < 3; j++){
-                int testdatedate[] = {2000, 6, 25};
-                //temporary array so every loop will only check the corresponding format
-                testdatedate[j] = date[j] - i;
-                x = d1.compareTo(new MyDate(testdatedate[0], testdatedate[1], testdatedate[2]));
-                if(j==0){
-                    year_response = x;
-                }else if(j == 1){
-                    month_response = x;
-                }else{
-                    day_response = x;
-                }
-                System.out.println("other " + testdatedate[0] + " " + testdatedate[1] + " " + testdatedate[2]);
-                System.out.println("this " + date[0] + " " + date[1] + " " + date[2]);
-                System.out.println(x);
-            }
-            //runs if error response compared to the expected response
-            System.out.println(month_response + " " + month_response + " " + day_response + " " + x);
-            if ((year_response == month_response && day_response == month_response) && x != 2){
-
-                //System.out.println(false);                                                //debugging
-
-                testOK = false;
-            }
-        } */
-
         if (testOK) {
             System.out.println("Test 2 OK.");
         } else {
