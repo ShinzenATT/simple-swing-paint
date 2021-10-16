@@ -9,10 +9,12 @@ public class DrawControl extends JFrame {
         setSize(600,400);
         setLocation(50,50);
         setTitle("Drawing Program");
-        DrawView dv = new DrawView(
-                e -> System.out.println("black"),
-                e -> System.out.println("red"),
-                e -> System.out.println("green"),
+        DrawView dv = new DrawView();
+        DrawModel dm = new DrawModel(dv);
+        dv.addActionListeners(
+                e -> dv.setStatus("black"),
+                e -> dv.setStatus("red"),
+                e -> dv.setStatus("green"),
                 e -> System.out.println("dot"),
                 e -> System.out.println("oval"),
                 e -> System.out.println("rect"),
@@ -20,7 +22,6 @@ public class DrawControl extends JFrame {
                 e -> System.out.println("save"),
                 e -> System.out.println("load")
         );
-        DrawModel dm = new DrawModel(dv);
         add(dv);
         setVisible(true);
     }
