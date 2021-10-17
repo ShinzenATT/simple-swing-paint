@@ -1,4 +1,9 @@
+import javax.swing.*;
 import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class DrawModel {
     private final DrawView drawView;
@@ -54,4 +59,30 @@ public class DrawModel {
         }
         drawView.drawNewShape(new Shape(rx, ry - 40, width, height, currentColor, mode));
     }
+
+    public void savePanel(DrawView dv){
+        try{
+            FileOutputStream output = new FileOutputStream("save.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(output);
+            objectOutputStream.writeObject(dv);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }catch(Exception x){
+            System.out.println("Save failed because of : " + x);
+        }
+    }
+
+    public DrawView loadPanel(){
+        try{
+            FileInputStream input = new FileInputStream("save.txt");
+            ObjectInputStream objectInputStream = new ObjectInputStream(input);
+            DrawView dv = (DrawView) objectInputStream.readObject();
+            objectInputStream.close();
+            return dv;
+        }catch(Exception x){
+            System.out.println("Load failed because of : " + x);
+            return null;
+        }
+    }
+
 }

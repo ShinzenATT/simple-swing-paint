@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.event.*;
+import java.io.*;
 import javax.swing.*;
 
 public class DrawControl extends JFrame {
@@ -19,8 +20,16 @@ public class DrawControl extends JFrame {
                 e -> dm.setMode("oval"),
                 e -> dm.setMode("rectangle"),
                 e -> dm.undoDraw(),
-                e -> System.out.println("save"),
-                e -> System.out.println("load")
+                e -> dm.savePanel(dv),
+                e -> {
+                    DrawView tempdv = dm.loadPanel();
+                    if(tempdv == null){
+                        System.out.println("Load Failed");
+                    }else{
+                        this.add(tempdv);
+                        this.remove(dv);
+                    }
+                }
         );
 
         class MouseHandler implements MouseListener, MouseMotionListener{

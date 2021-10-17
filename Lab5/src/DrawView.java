@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawView extends JPanel {
+public class DrawView extends JPanel implements Serializable {
     private class CanvasPanel extends JPanel{
         @Override
         public void paintComponent(Graphics g){

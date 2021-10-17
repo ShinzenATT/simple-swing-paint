@@ -1,7 +1,8 @@
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Shape {
+public class Shape implements Serializable {
     final int x, y, width, height;
     final Color color;
     final String type;
