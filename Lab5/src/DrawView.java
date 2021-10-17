@@ -83,4 +83,11 @@ public class DrawView extends JPanel {
         toDraw.add(e);
         repaint();
     }
+
+    public void removeLastShape(){
+        if(toDraw.size() > 0){
+            toDraw.remove(toDraw.size() - 1);
+            repaint();
+        }
+    }
 }

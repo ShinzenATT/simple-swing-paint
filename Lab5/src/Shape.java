@@ -41,7 +41,7 @@ public class Shape {
         switch (type) {
             case "rectangle" -> g.fillRect(x, y, width, height);
             case "oval" -> g.fillOval(x, y, width, height);
-            case "dot" -> g.fillOval(x, y, width, width);
+            case "dot" -> g.fillOval(x, y, 10, 10);
         }
     }
 }
