@@ -91,4 +91,13 @@ public class DrawView extends JPanel implements Serializable {
             repaint();
         }
     }
+
+    public ArrayList<Shape> getDrawHistory(){
+        return (ArrayList<Shape>) toDraw.clone();
+    }
+
+    public void clearCanvas(){
+        toDraw.removeAll(toDraw);
+        System.out.println(toDraw.toString());
+    }
 }

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class DrawControl extends JFrame {
@@ -22,12 +23,14 @@ public class DrawControl extends JFrame {
                 e -> dm.undoDraw(),
                 e -> dm.savePanel(dv),
                 e -> {
-                    DrawView tempdv = dm.loadPanel();
+                    ArrayList<Shape> tempdv = dm.loadPanel();
                     if(tempdv == null){
                         System.out.println("Load Failed");
                     }else{
-                        this.add(tempdv);
-                        this.remove(dv);
+                        dv.clearCanvas();
+                        for (int i = 0; i < tempdv.size(); i++){
+                            dv.drawNewShape(tempdv.get(i));
+                        }
                     }
                 }
         );

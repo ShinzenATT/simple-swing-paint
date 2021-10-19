@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class DrawModel {
     private final DrawView drawView;
@@ -64,7 +65,8 @@ public class DrawModel {
         try{
             FileOutputStream output = new FileOutputStream("save.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(output);
-            objectOutputStream.writeObject(dv);
+            System.out.println(dv.getDrawHistory().toString());
+            objectOutputStream.writeObject(dv.getDrawHistory());
             objectOutputStream.flush();
             objectOutputStream.close();
         }catch(Exception x){
@@ -72,12 +74,13 @@ public class DrawModel {
         }
     }
 
-    public DrawView loadPanel(){
+    public ArrayList<Shape> loadPanel(){
         try{
             FileInputStream input = new FileInputStream("save.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(input);
-            DrawView dv = (DrawView) objectInputStream.readObject();
+            ArrayList<Shape> dv = (ArrayList<Shape>) objectInputStream.readObject();
             objectInputStream.close();
+            System.out.println(dv.toString());
             return dv;
         }catch(Exception x){
             System.out.println("Load failed because of : " + x);
