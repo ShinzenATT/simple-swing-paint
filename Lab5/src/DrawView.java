@@ -99,5 +99,6 @@ public class DrawView extends JPanel implements Serializable {
     public void clearCanvas(){
         toDraw.removeAll(toDraw);
         System.out.println(toDraw.toString());
+        repaint();
     }
 }
