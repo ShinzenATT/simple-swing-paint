@@ -27,16 +27,18 @@ public class DrawView extends JPanel implements Serializable {
     private final JTextArea status;
     private final  JButton[] buttons;
     private final CanvasPanel canvas;
-    private final ArrayList<Shape> toDraw = new ArrayList<Shape>();
+    // Is a pointer to a different list
+    private final List<Shape> toDraw;
 
     /**
      * This constructor creates and sets the properties for needed elements. It also attaches any provided {@link ActionListener}s to buttons.
+     * @param refList A pointer to another list of shapes that is to be drawn on the canvas
      * @param handlers It's a group or an array of {@link ActionListener} handlers (maybe inputted as a lambda) that is later attached to 9 buttons.
      *                 This argument is optional, and it only uses a max of 9 values so any additional handlers will not be attached.
      *                 The handlers will be attached in the following buttons in order: "Black", "Red", "Green", "Dot", "Oval", "Rect", "Undo", "Save" & "Load".
      *                 Where "Black" takes the value with index 0 and "Load" takes the value with index 8.
      */
-    public DrawView(ActionListener ... handlers){
+    public DrawView(List<Shape> refList, ActionListener ... handlers){
         super(new BorderLayout());
 
         // Creates the 9 buttons
@@ -84,6 +86,7 @@ public class DrawView extends JPanel implements Serializable {
         canvas = new CanvasPanel();
         canvas.setBackground(Color.WHITE);
         add(canvas);
+        toDraw = refList;
     }
 
     /**
@@ -106,39 +109,5 @@ public class DrawView extends JPanel implements Serializable {
         for(int i = 0; i < buttons.length && i < handlers.length; i++){
             buttons[i].addActionListener(handlers[i]);
         }
-    }
-
-    /**
-     * Adds a shape to the draw history and rerenders all shapes including the new one
-     * @param e A shape to be rendered
-     */
-    public void drawNewShape(Shape e){
-        toDraw.add(e);
-        repaint();
-    }
-
-    /**
-     * Removes the latest added shape from the drawing history and rerenders the canvas
-     */
-    public void removeLastShape(){
-        if(toDraw.size() > 0){
-            toDraw.remove(toDraw.size() - 1);
-            repaint();
-        }
-    }
-
-    /**
-     * @return An {@link ArrayList} of {@link Shape} objects as a snapshot of the current drawing history
-     */
-    public ArrayList<Shape> getDrawHistory(){
-        return (ArrayList<Shape>) toDraw.clone();
-    }
-
-    /**
-     * Clears the canvas and the drawing history
-     */
-    public void clearCanvas(){
-        toDraw.removeAll(toDraw);
-        repaint();
     }
 }

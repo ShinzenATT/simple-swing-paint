@@ -12,6 +12,7 @@ public class DrawModel {
     private Color currentColor = Color.BLACK;
     private String mode = "dot";
     private final int[] initialMousePos = { 0, 0 };
+    private final ArrayList<Shape> drawHistory = new ArrayList<>();
 
     /**
      * This method sets the current color mode which impacts future generated shapes.
@@ -76,14 +77,13 @@ public class DrawModel {
     }
 
     /**
-     * Accepts a ArrayList that is saved to the "save.txt" file for later retrieval
-     * @param list An {@link ArrayList} that contains {@link Shape} objects
+     * Save drawHistory to the "save.txt" file for later retrieval
      */
-    public void saveShapes(ArrayList<Shape> list){
+    public void saveShapes(){
         try{
             FileOutputStream output = new FileOutputStream("save.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(output);
-            objectOutputStream.writeObject(list);
+            objectOutputStream.writeObject(drawHistory);
             objectOutputStream.flush();
             objectOutputStream.close();
         }catch(Exception x){
@@ -92,20 +92,44 @@ public class DrawModel {
     }
 
     /**
-     * Loads and parses a ArrayList from the "save.txt" file that gets returned
-     * @return A {@link ArrayList} that contains {@link Shape} objects
+     * Loads and parses a ArrayList from the "save.txt" file that replaces the drawHistory
      */
-    public ArrayList<Shape> loadShapes(){
+    public void loadShapes(){
         try{
             FileInputStream input = new FileInputStream("save.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(input);
             ArrayList<Shape> list = (ArrayList<Shape>) objectInputStream.readObject();
             objectInputStream.close();
-            return list;
+            drawHistory.removeAll(drawHistory);
+            drawHistory.addAll(list);
         }catch(Exception x){
             System.out.println("Load failed because of : " + x);
-            return null;
         }
+    }
+
+    /**
+     * A getter for the drawHistory
+     * @return A list pointer to the drawHistory
+     */
+    public ArrayList<Shape> getDrawHistoryPtr(){
+        return drawHistory;
+    }
+
+    /**
+     * Removes the latest shape in the drawing history
+     */
+    public void removeLastShape(){
+        if(drawHistory.size() > 0){
+            drawHistory.remove(drawHistory.size() - 1);
+        }
+    }
+
+    /**
+     * Adds a shape to the drawing history
+     * @param s A {@link Shape} object that is to be drawn
+     */
+    public void addShape(Shape s){
+        drawHistory.add(s);
     }
 
 }

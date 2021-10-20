@@ -25,8 +25,8 @@ public class DrawControl extends JFrame {
         setTitle("Drawing Program");
 
         // Initialize the main classes
-        DrawView dv = new DrawView();
         DrawModel dm = new DrawModel();
+        DrawView dv = new DrawView(dm.getDrawHistoryPtr());
         dv.addActionListeners(
                 e -> { dm.setColor(Color.BLACK); dv.setStatus(dm.generateStatus()); },   // "Black" button
                 e -> { dm.setColor(Color.RED); dv.setStatus(dm.generateStatus()); },     // "Red" button
@@ -34,19 +34,9 @@ public class DrawControl extends JFrame {
                 e -> { dm.setMode("dot"); dv.setStatus(dm.generateStatus()); },          // "Dot" button
                 e -> { dm.setMode("oval"); dv.setStatus(dm.generateStatus()); },         // "Oval" button
                 e -> { dm.setMode("rectangle"); dv.setStatus(dm.generateStatus()); },    // "Rect" button
-                e -> dv.removeLastShape(),                                               // "Undo" button
-                e -> dm.saveShapes(dv.getDrawHistory()),                                 // "Save" button
-                e -> {                                                                   // "Load" button:
-                    ArrayList<Shape> list = dm.loadShapes();
-                    if(list == null){
-                        System.out.println("Load Failed");
-                    }else{
-                        dv.clearCanvas();
-                        for (Shape shape : list) {
-                            dv.drawNewShape(shape);
-                        }
-                    }
-                }
+                e -> { dm.removeLastShape(); dv.repaint(); },                                               // "Undo" button
+                e -> dm.saveShapes(),                                 // "Save" button
+                e -> { dm.loadShapes(); dv.repaint(); }
         );
 
         dv.setStatus(dm.generateStatus());
@@ -59,15 +49,17 @@ public class DrawControl extends JFrame {
             public void mousePressed(MouseEvent arg0) {
                 dm.setMouseAnchor(arg0.getX(), arg0.getY());
                 Shape s = dm.generateShape(arg0.getX() + 10, arg0.getY() + 10);
-                dv.drawNewShape(s);
+                dm.addShape(s);
+                dv.repaint();
             }
 
             
             @Override
             public void mouseDragged(MouseEvent arg0) {
-                dv.removeLastShape();
+                dm.removeLastShape();
                 Shape s = dm.generateShape(arg0.getX(), arg0.getY());
-                dv.drawNewShape(s);
+                dm.addShape(s);
+                dv.repaint();
             }
 
             @Override
