@@ -77,11 +77,12 @@ public class DrawModel {
     }
 
     /**
-     * Save drawHistory to the "save.txt" file for later retrieval
+     * Save drawHistory to a txt file for later retrieval
+     * @param filename the name of the file that is to be saved as
      */
-    public void saveShapes(){
+    public void saveShapes(String filename){
         try{
-            FileOutputStream output = new FileOutputStream("save.txt");
+            FileOutputStream output = new FileOutputStream(filename);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(output);
             objectOutputStream.writeObject(drawHistory);
             objectOutputStream.flush();
@@ -92,11 +93,13 @@ public class DrawModel {
     }
 
     /**
-     * Loads and parses a ArrayList from the "save.txt" file that replaces the drawHistory
+     * Loads and parses a ArrayList from a txt file that replaces the drawHistory
+     * @param filename the name of the file to be loaded
+     * @exception IllegalArgumentException is thrown when the requested file couldn't be loaded
      */
-    public void loadShapes(){
+    public void loadShapes(String filename){
         try{
-            FileInputStream input = new FileInputStream("save.txt");
+            FileInputStream input = new FileInputStream(filename);
             ObjectInputStream objectInputStream = new ObjectInputStream(input);
             ArrayList<Shape> list = (ArrayList<Shape>) objectInputStream.readObject();
             objectInputStream.close();
@@ -104,6 +107,7 @@ public class DrawModel {
             drawHistory.addAll(list);
         }catch(Exception x){
             System.out.println("Load failed because of : " + x);
+            throw new IllegalArgumentException();
         }
     }
 

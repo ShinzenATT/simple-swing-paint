@@ -35,8 +35,35 @@ public class DrawControl extends JFrame {
                 e -> { dm.setMode("oval"); dv.setStatus(dm.generateStatus()); },         // "Oval" button
                 e -> { dm.setMode("rectangle"); dv.setStatus(dm.generateStatus()); },    // "Rect" button
                 e -> { dm.removeLastShape(); dv.repaint(); },                                               // "Undo" button
-                e -> dm.saveShapes(),                                 // "Save" button
-                e -> { dm.loadShapes(); dv.repaint(); }
+                e -> {
+                    String str = JOptionPane.showInputDialog(
+                            this,
+                            "Select a filename to save as",
+                            "File saver",
+                            JOptionPane.QUESTION_MESSAGE
+                    );
+                    if(!str.endsWith(".txt")){
+                        str += ".txt";
+                    }
+                    dm.saveShapes(str);
+                },                                 // "Save" button
+                e -> {
+                    String str = JOptionPane.showInputDialog(
+                            this,
+                                "Select a file to load from",
+                                "File selector",
+                                JOptionPane.QUESTION_MESSAGE
+                            );
+                    if(!str.endsWith(".txt")){
+                        str += ".txt";
+                    }
+                    try {
+                        dm.loadShapes(str);
+                    }catch (IllegalArgumentException exception){
+                        JOptionPane.showMessageDialog(this, str + " was not found or it could not be parsed.", "File not found", JOptionPane.ERROR_MESSAGE);
+                    }
+                    dv.repaint();
+                }
         );
 
         dv.setStatus(dm.generateStatus());
